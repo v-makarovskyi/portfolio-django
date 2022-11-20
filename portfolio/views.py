@@ -65,6 +65,21 @@ def create_post(request):
     context = {'form': form}
     return render(request, 'portfolio/post_form.html', context)
 
+@admin_only
+@login_required(login_url='home')
+def update_post(request, slug):
+    post = Post.objects.get(slug=slug)
+    form = PostForm(instance=post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+        return redirect('posts')
+
+    context = {'form': form}
+    return render(request, 'portfolio/post_form.html', context)
+
 
 
 
