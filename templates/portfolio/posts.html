@@ -1,0 +1,48 @@
+{% extends 'portfolio/base.html' %} 
+{% load static %} 
+{% load crispy_forms_tags%} 
+{% block content %}
+
+<style type="text/css">
+  #div_id_tags,
+  #id_tags {
+    overflow-y: scroll;
+    max-height: 100px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid #888;
+  }
+</style>
+
+<div class="main-container">
+  <h1>Публикации</h1>
+  {% if request.user.is_staff %}
+  <a class="btn btn-warning" href="{% url 'portfolio:home' %}">Создать пост</a>
+  {% endif %}
+  <form id="searchForm" method="GET">
+    <h5 class="text-center">Поиск по публикациям</h5>
+    {{ my_filter.form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Поиск" />
+  </form>
+  <div class="post-wrapper">
+    {% for post in posts %}
+    <div>
+      <div class="post">
+        <img class="thumbnail" src="{{ post.thumbnail.url }}" alt="" />
+        <div class="post-preview">
+          <div class="post-title">{{ post.headline }}</div>
+          <p class="post-intro">{{post.sub_headline}}</p>
+          <a href="{% url 'post' post.slug %}">Read More</a>
+          {% if request.user.is_staff %}
+          <a href="{% url 'update_post' post.slug %}">Edit</a> |
+          <a href="{% url 'delete_post' post.slug %}">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

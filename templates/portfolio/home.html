@@ -1,0 +1,121 @@
+{% extends './base.html' %} 
+{% load static %} 
+{% block title %}Домашняя страница{% endblock %} 
+{% block content %}
+
+<section class="s1">
+  <div class="main-container">
+    <div class="greeting-wrapper">
+      <h1>Привет! Меня зовут Владимир Макаровский</h1>
+    </div>
+    <div class="intro-wrapper">
+      {% include "portfolio/navbar.html" %}
+      <div class="left_column">
+        <img id="profile-pic" src="{% static 'media/images/vm.jpeg' %}" alt="img" />
+        <h5 style="text-align: center; line-height: 0; margin-top: 13px;">Персонализация темы</h5>
+
+        <div id="theme-options-wrapper">
+          <div data-mode="light" id="light-mode" class="theme-dot"></div>
+          <div data-mode="blue" id="blue-mode" class="theme-dot"></div>
+          <div data-mode="green" id="green-mode" class="theme-dot"></div>
+          <div data-mode="purple" id="purple-mode" class="theme-dot"></div>
+        </div>
+
+        <p id="settings-note">
+          *Настройки темы будут сохранены<br />для вашего следующего посещения
+        </p>
+      </div>
+      <div class="right_column">
+        <div id="preview-shadow">
+          <div id="preview">
+            <div id="corner-tl" class="corner"></div>
+            <div id="corner-tr" class="corner"></div>
+            <h3>Чем я занимаюсь</h3>
+            <p>
+              Я начинающий Python/Django разработчик
+            </p>
+            <div id="corner-br" class="corner"></div>
+            <div id="corner-bl" class="corner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s2">
+  <div class="main-container">
+    <div class="about-wrapper">
+      <div class="about-me">
+        <h4>Подробнее обо мне</h4>
+
+        <p>
+          Я изучаю язык программирования Python и фреймворк Django, написанный на его основе.
+        </p>
+
+        <p>
+          К сожелению, я пока не имею опыта коммерческой разработки и в данный момент времени имею цель найти свою первую работу, чтобы иметь возможность применить полученные знания.
+        </p>
+
+        <hr />
+
+        <h4>КОМПЕТЕНЦИИ</h4>
+
+        <p>
+          Fullstack разработчик. Приоритет: Python/Django + React:
+        </p>
+
+        <div id="skills">
+          <ul>
+            <li>Python</li>
+            <li>Django</li>
+            <li>JavaScript</li>
+            <li>React</li>
+            <li>Redux/@reduxjs/toolkit</li>
+          </ul>
+
+          <ul>
+            <li>Postgres</li>
+            <li>Heroku</li>
+            <li>HTML/CSS</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="social-links">
+        <img id="social_img" src="{% static 'media/images/gh.png' %}" />
+        <h4 class="mt-2">Моя страница на Github</h4>
+        <a target="_blank" href="https://github.com/v-makarovskyi"
+          >Github: v-makarovskyi</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s1">
+    <div class="main-container">
+        <h3 style="text-align: center;">Некоторые из моих проектов</h3>
+
+        <div class="post-wrapper">
+            {% for post in posts %}
+            <div>
+                <div class="post">
+                    <img class="thumbnail" src="{{post.thumbnail.url}}">
+                    <div class="post-preview">
+                        <h6 class="post-title">{{post.headline}}</h6>
+                        <p class="post-intro">{{post.sub_headline}}</p>
+                        <button>Читать</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <p align="center">
+          <a href="{% url 'portfolio:posts' %}">Смотреть больше</a>
+        </p>
+    </div>
+</section>
+
+{% endblock %}
