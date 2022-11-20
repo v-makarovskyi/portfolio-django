@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Post, PostComment
 from .forms import CustomUserCreationForm, PostForm, UserForm, ProfileForm
 from .filters import PostFilter
+from .decorators import admin_only
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import login, logout, authenticate
@@ -49,6 +51,22 @@ def post(request, slug):
     
     context = {'post': post}
     return render(request, 'portfolio/post.html', context)
+
+
+@admin_only
+@login_required(login_url='home')
+def create_post(request):
+    form = PostForm()
+    if request.metgod == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return redirect('posts')
+    context = {'form': form}
+    return render(request, 'portfolio/post_form.html', context)
+
+
+
 
 
 def register(request):
