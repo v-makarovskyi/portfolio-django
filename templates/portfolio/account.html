@@ -1,0 +1,62 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block content %}
+
+<style type="text/css">
+	#user_pic{
+		height: 200px;
+		width: 200px;
+		border-radius: 50%;
+		border:5px solid #888;
+		margin:0 auto;
+		object-fit: cover;
+	}
+
+	#user-info-box{
+		text-align: center;
+	}
+</style>
+
+<div class="main-container">
+    <div class="row mb-4">
+        <a class="btn btn-info" href="{% url 'portfolio:home' %}" style="margin-top: 20px;">На главную</a>
+    </div>
+    <div class="row">
+       <div class="col-md-4">
+            <div class="card card-body" id="user-info-box">
+                <img id="user-pic" src="{{profile.avatar.url}}" alt="avatar">
+                <br>
+                <h2>{{profile}}</h2>
+                <hr>
+                <p>{{profile.bio}}</p>
+                <a class="btn btn-block btn-info" href="{% url 'portfolio:update_profile' %}">Обновить профиль</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+			<div class="card card-body">
+				<h3>Мои комментарии:</h3>
+				<hr>
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID</th>
+							<th>Дата</th>
+							<th>Текст</th>
+							<th>Детально</th>
+						</tr>
+					</thead>
+					{% for comment in comments %}
+					<tr>
+						<td>{{ comment.id }}</td>
+						<td>{{ comment.created }}</td>
+						<td>{{ comment.body|slice:'20' }}...</td>
+						<td><a class="btn btn-dark btn-sm" href="{% url 'portfolio:post_detail' comment.post.slug %}">Смотреть пост</a></td>
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+    </div>
+</div>
+
+{% endblock %}

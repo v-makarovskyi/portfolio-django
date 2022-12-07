@@ -9,4 +9,4 @@ def admin_only(view_func):
         else:
             return HttpResponse('Вы не имеете прав доступа к этому ресурсу')
 
-    return wrapper_function()
+    return wrapper_function

@@ -15,10 +15,10 @@
 		<h2  id="close-btn" style="text-align: center">X</h2>
 		<li><a href="{% url 'portfolio:home' %}#contact">Контакты</a></li>
 		{% if request.user.is_authenticated %}
-			<li><a href=""> Аккаунт</a></li>
-			<li><a href="">Выйти</a></li>
+			<li><a href="{% url 'portfolio:account' %}"> Аккаунт</a></li>
+			<li><a href="{% url 'portfolio:logout' %}">Выйти</a></li>
 		{% else %}
-			<li><a href="">Login</a></li>
+			<li><a href="{% url 'portfolio:login' %}">Войти</a></li>
 		{% endif %}
 	</ul>
 

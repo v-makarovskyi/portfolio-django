@@ -14,7 +14,7 @@ class CustomUserCreationForm(UserCreationForm):
 class PostForm(ModelForm):
 
     class Meta:
-        model: Post
+        model = Post
         fields = '__all__'
         
         widgets = {

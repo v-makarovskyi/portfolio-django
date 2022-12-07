@@ -105,7 +105,7 @@
                     <div class="post-preview">
                         <h6 class="post-title">{{post.headline}}</h6>
                         <p class="post-intro">{{post.sub_headline}}</p>
-                        <button>Читать</button>
+                        <a href="{% url 'portfolio:post_detail' post.slug %}">Читать</a>
                     </div>
                 </div>
             </div>

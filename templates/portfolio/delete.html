@@ -1,0 +1,15 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="main-container">
+	<form method="POST" action="" class="text-center" style="margin-top: 300px;">
+		{% csrf_token %}
+
+		<p>Вы уверены, что хотите удалить "{{item}}"?</p>
+		<a class="btn btn-primary" href="{% url 'portfolio:posts' %}">&laquo назад к постам</a>
+		<input class="btn btn-danger" type="submit" value="Удалить">
+	</form>
+</div>
+
+{% endblock content %}

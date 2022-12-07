@@ -10,7 +10,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, blank=True, null=True)
     last_name = models.CharField(max_length=100, null=True, blank=True)
-    email = models.EmailField(max_length=200)
+    email = models.EmailField(unique=True ,max_length=200)
     avatar = models.ImageField(null=True, blank=True, upload_to='images', default='/user.png')
     bio = models.TextField(null=True, blank=True)
     twitter = models.CharField(max_length=200, null=True, blank=True)
@@ -52,6 +52,8 @@ class Post(models.Model):
                 count += 1
                 slug = slugify(self.headline) + '-' + str(count)
                 has_slug = Post.objects.filter(slug=slug).exists()
+            
+            self.slug = slug
         
         super().save(*args, **kwargs)
 
